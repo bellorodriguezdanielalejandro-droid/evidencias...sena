@@ -12,10 +12,13 @@ const formatoColombiano = new Intl.NumberFormat("es-CO", {
   minimumFractionDigits: 0,
 });
 
-async function crear(name, description, image, price) {
-  const resultado = await pool.query(
-    'INSERT INTO public."Productos" (name, description, image, price) VALUES ($1, $2, $3, $4) RETURNING *',
-    [name, description, image, price],
-  );
-  return resultado.rows[0];
-}
+async function conexion() {
+  try {
+    const result = await pool.query('select * from public."productos"');
+    console.log(result.rows);
+  } catch (error) {
+    console.error(error);
+  }finally {
+  await pool.end();
+}}
+conexion();
