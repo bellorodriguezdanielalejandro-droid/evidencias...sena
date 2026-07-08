@@ -1,0 +1,17 @@
+{
+  "name": "modulos-software",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "daniel",
+  "type": "commonjs",
+  "main": "bace-de-datos.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "dotenv": "^16.6.1",
+    "express": "^5.2.1",
+    "pg": "^8.22.0"
+  }
+}
