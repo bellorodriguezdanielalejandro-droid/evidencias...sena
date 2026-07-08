@@ -1,5 +1,10 @@
 const express = require("express");
-const { crear, listar, obtener, actualizar, eliminar } = require("bace-de-datos.js");
+const { 
+  crear,
+  listar,
+  obtener,
+  actualizar,
+  eliminar, } = require("./bace-de-datos");
 
 const app = express();
 app.use(express.json());
@@ -33,11 +38,11 @@ app.get("/productos/:id", async (req, res) => {
 // Crear un producto
 app.post("/productos", async (req, res) => {
   try {
-    const { name, description, image, price } = req.body;
+    const { id, name, description, image, price, create_at } = req.body;
     if (!name || price == null) {
       return res.status(400).json({ error: "name y price son obligatorios" });
     }
-    const producto = await crear(name, description, image, price);
+    const producto = await crear(id, name, description, image, price, create_at);
     res.status(201).json(producto);
   } catch (error) {
     console.error(error);
@@ -48,13 +53,15 @@ app.post("/productos", async (req, res) => {
 // Actualizar un producto
 app.put("/productos/:id", async (req, res) => {
   try {
-    const { name, description, image, price } = req.body;
+    const { id, name, description, image, price, create_at } = req.body;
     const producto = await actualizar(
       req.params.id,
+      id,
       name,
       description,
       image,
       price,
+      create_at
     );
     if (!producto) {
       return res.status(404).json({ error: "Producto no encontrado" });
