@@ -53,16 +53,15 @@ app.post("/productos", async (req, res) => {
 // Actualizar un producto
 app.put("/productos/:id", async (req, res) => {
   try {
-    const { id, name, description, image, price, create_at } = req.body;
-    const producto = await actualizar(
-      req.params.id,
-      id,
-      name,
-      description,
-      image,
-      price,
-      create_at
-    );
+    const { name, description, image, price } = req.body;
+
+const producto = await actualizar(
+    req.params.id,
+    name,
+    description,
+    image,
+    price
+);
     if (!producto) {
       return res.status(404).json({ error: "Producto no encontrado" });
     }

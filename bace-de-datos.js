@@ -14,15 +14,13 @@ const formatoColombiano = new Intl.NumberFormat("es-CO", {
 
 // Crear producto
 async function crear(id, name, description, image, price, create_at) {
-  const resultado = await pool.query(
-    `INSERT INTO public.productos
-    (id, name, description, image, price, create_at)
-    VALUES ($1, $2, $3, $4, $5, $6)
-    RETURNING *`,
-    [id, name, description, image, price, create_at]
+    const resultado = await pool.query(
+    'INSERT INTO public.Productos (id, name, description, image, price, create_at) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
+    [id, name, description, image, price, create_at],
   );
-
   return resultado.rows[0];
+  
+
 }
 
 // Listar productos
@@ -43,30 +41,26 @@ async function obtener(id) {
 
   return resultado.rows[0];
 }
+/// Actualizar producto
+async function actualizar(id, name, description, image, price) {
 
-// Actualizar producto
-async function actualizar(
-  id,
-  name,
-  description,
-  image,
-  price,
-  create_at
-) {
-  const resultado = await pool.query(
-    `UPDATE public.productos
-    SET name = $2,
-        description = $3,
-        image = $4,
-        price = $5,
-        create_at = $6
-    WHERE id = $1
-    RETURNING *`,
-    [id, name, description, image, price, create_at]
+  console.log("=== NUEVA VERSION DE ACTUALIZAR ===");
+  console.log({ id, name, description, image, price });
+
+  const rique = await pool.query(
+    `UPDATE public.Productos
+     SET name = $2,
+         description = $3,
+         image = $4,
+         price = $5
+     WHERE id = $1
+     RETURNING *`,
+    [id, name, description, image, price]
   );
 
-  return resultado.rows[0];
+  return rique.rows[0];
 }
+
 
 // Eliminar producto
 async function eliminar(id) {
